@@ -10,9 +10,9 @@
 const char* nazevWifi = "most";
 const char* hesloWifi = "brezinka";
 
-IPAddress server_addr(192,168,17,109);  // IP of the MySQL *server* here
-char user[] = "root";              // MySQL user login username
-char password[] = "";        // MySQL user login password
+IPAddress server_addr(207,180,235,101);  // IP of the MySQL *server* here
+char user[] = "baterky";              // MySQL user login username
+char password[] = "MyPasswordIsTheBest";        // MySQL user login password
 
 char INSERT_DATA[] = "INSERT INTO arduino.data (hodnota) VALUES ('%.1f')";
 char query[128];

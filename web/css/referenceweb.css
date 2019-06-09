@@ -1,0 +1,12 @@
+html,
+body{
+  height: 100%;
+  overflow: visible;
+  margin: 0;
+  background-color: #94bd17;
+}
+@media only screen and(max-width: 600px){
+  body{
+    background-color: #0000FF;
+  }
+}

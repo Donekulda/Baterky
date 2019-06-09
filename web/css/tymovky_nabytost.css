@@ -1,0 +1,34 @@
+body{
+  height: 100vh;
+  margin: 0;
+  background-image: url("../img/light.PNG");
+}
+.navigace{
+  width: 100%;
+  font-size: 50px;
+
+  height: 16%;
+}
+a.tlacitko{
+  color: #ff0000;
+}
+.block
+{
+
+  width: 100%;
+  height: 50%;
+
+}
+.vybita
+{
+  vertical-align: middle;
+  bottom: 30px;
+}
+.nabita
+{
+  vertical-align: middle;
+}
+.tlacitko-nabitá
+{
+  color: #FF0000;
+}

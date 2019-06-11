@@ -33,7 +33,7 @@
           }
         }
         
-        $sql2 = "SELECT MAX(U), Min(U), COUNT(Wh), COUNT(W*0.0166666667) AS WattHour FROM ".$druh;
+        $sql2 = "SELECT MAX(U), Min(U), COUNT(Wh), COUNT(W*0.0166666667) AS WattHour FROM ".$druh; //důvod proč to(watty na WattHodiny) počítam s minuty je ten že v původní verzi jsem měřil po minutách a v nové verzi měřím po 30 sekundách
         $result2 = $conn->query($sql2);
         
         if ($result2->num_rows > 0) {
@@ -44,7 +44,7 @@
             $Wh = $row['COUNT(Wh)'];
             if($Wh == 0 or $Wh == null or !isset($Wh))
               $Wh = $row['WattHour'];
-            $delic = ($max-$min); //hodnota pro deleni voltu 
+            $delic = ($max-$min); //hodnota pro deleni voltu
             $volts-=$min;
             if($volts >= 0){
               $volts*=100;
@@ -58,6 +58,8 @@
         } 	
 	}
     
+    $value = (int)$value;
+    
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -65,11 +67,15 @@
     <meta charset="UTF-8">
     <title>Title</title>
   <link rel="stylesheet" type="text/css" href="css/tymovky_nabytost.css" media="all">
+
+  <script type="text/javascript" src="script.js"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="refresh" content="15">
 
 </head>
 <body>
+<div class="navigace"></div>
+<div class="block">
 <div>
 	<form method="Get" action="">
 		<input type="submit" name="druh" value="Modrá">
@@ -78,15 +84,25 @@
 		<input type="submit" name="druh" value="Žlutá">
 	</form>
 </div>
+<form>
+zadej procenta 
 
 <div>
 
-    <progress max="100" value="<?php echo $value; ?>" class="html5">
-    </progress>
 
     <p><strong><?php echo ($value > 0)?"Baterie má ".$value."%.":"Baterie není připojená nebo je vybitá!"; ?></strong></p>
     <p><strong>Tato baterie má kapacitu <?php echo $Wh." Watt Hodin."; ?> </strong></p>
+</div> 
+<div
+    data-type="fill"
+    data-path="M10 10L90 10L90 90L10 90Z"
+    class="ldBar"
+    data-fill="data:ldbar/res,bubble(#00ff00,#000000,50,1)"
+    data-value="<?php echo $value;?>"
 
+    style="margin-top: 100px;">
+
+  </div>
 </div>
 </body>
 </html>

@@ -1,34 +1,28 @@
-body{
-  height: 100vh;
-  margin: 0;
-  background-image: url("../img/light.PNG");
-}
-.navigace{
-  width: 100%;
-  font-size: 50px;
 
-  height: 16%;
-}
-a.tlacitko{
-  color: #ff0000;
-}
-.block
-{
 
-  width: 100%;
-  height: 50%;
+progress[value] {
+  /* Reset the default appearance */
+  -webkit-appearance: none;
+  appearance: none;
 
+  width: 50%;
+  height: 100px;
 }
-.vybita
-{
-  vertical-align: middle;
-  bottom: 30px;
+ul{
+  list-style-type: none;}
+.button {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
 }
-.nabita
+.html5
 {
-  vertical-align: middle;
-}
-.tlacitko-nabitá
-{
-  color: #FF0000;
+  border: 2px solid #000000;
 }

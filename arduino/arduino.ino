@@ -34,7 +34,7 @@ void setup(void) {
   pinMode(MyRelay, OUTPUT);
   digitalWrite(MyRelay, LOW); //vypnutí relé z důvodu zabránění vybíjení baterie když ještě není připojeno arduino k internetu
   RelayOn = true;
-  Serial.begin(9600);
+  //Serial.begin(9600);
   /* Použit předtím(při používání ESP), kvůli technickým potížímtím než jsem musel změnit arduino z arduino WeMos na Arduino Uno
   // zahájení komunikace po WiFi s připojením
   // na router skrze zadané přihl. údaje
@@ -44,35 +44,35 @@ void setup(void) {
   // 500 milisekund tečka po sériové lince
   while (WiFi.status() != WL_CONNECTED) {
     delay(500);
-    Serial.print(".");
+    //Serial.print(".");
   }
   // odřádkování a výpis informací o úspěšném připojení
   // včetně přidelené IP adresy od routeru
-  Serial.println("");
-  Serial.print("Pripojeno k WiFi siti ");
-  Serial.println(nazevWifi);
-  Serial.print("IP adresa: ");
-  Serial.println(WiFi.localIP());
+  //Serial.println("");
+  //Serial.print("Pripojeno k WiFi siti ");
+  //Serial.println(nazevWifi);
+  //Serial.print("IP adresa: ");
+  //Serial.println(WiFi.localIP());
   */
 
   // start the Ethernet connection:
-  Serial.println("Initialize Ethernet with DHCP:");
+  //Serial.println("Initialize Ethernet with DHCP:");
     if (Ethernet.begin(mac) == 0) {
-      Serial.println("Failed to configure Ethernet using DHCP");
+      //Serial.println("Failed to configure Ethernet using DHCP");
     if (Ethernet.hardwareStatus() == EthernetNoHardware) {
-      Serial.println("Ethernet shield was not found.  Sorry, can't run without hardware. :(");
+      //Serial.println("Ethernet shield was not found.  Sorry, can't run without hardware. :(");
     } else if (Ethernet.linkStatus() == LinkOFF) {
-      Serial.println("Ethernet cable is not connected.");
+      //Serial.println("Ethernet cable is not connected.");
     }
     // no point in carrying on, so do nothing forevermore:
     while (true) {
-      Serial.println("Vypni zařízení");
+      //Serial.println("Vypni zařízení");
       delay(1);
     }
   }
   // print your local IP address:
-  Serial.print("My IP address: ");
-  Serial.println(Ethernet.localIP());
+  //Serial.print("My IP address: ");
+  //Serial.println(Ethernet.localIP());
   if(!VoltMeterOnly){
     digitalWrite(MyRelay, HIGH); //Sepne se relé aby začala se vybíjet baterie
     delay(1000);
@@ -85,7 +85,7 @@ void loop(void) {
   switch (Ethernet.maintain()) {
     case 1:
       //renewed fail
-      Serial.println("Error: renewed fail");
+      //Serial.println("Error: renewed fail");
       if(!VoltMeterOnly){
         digitalWrite(MyRelay, LOW); //Vypne se vybíjení baterie a počká se 2 sekundy protože relé má nějaké spoždění
         delay(1000);
@@ -95,10 +95,10 @@ void loop(void) {
 
     case 2:
       //renewed success
-      Serial.println("Renewed success");
+      //Serial.println("Renewed success");
       //print your local IP address:
-      Serial.print("My IP address: ");
-      Serial.println(Ethernet.localIP());
+      //Serial.print("My IP address: ");
+      //Serial.println(Ethernet.localIP());
       if(!VoltMeterOnly){
         digitalWrite(MyRelay, HIGH); //Vypne se vybíjení baterie a počká se 2 sekundy protože relé má nějaké spoždění
         delay(1000);
@@ -108,7 +108,7 @@ void loop(void) {
 
     case 3:
       //rebind fail
-      Serial.println("Error: rebind fail");
+      //Serial.println("Error: rebind fail");
       if(!VoltMeterOnly){
         digitalWrite(MyRelay, LOW); //Vypne se vybíjení baterie a počká se 2 sekundy protože relé má nějaké spoždění
         delay(1000);
@@ -118,10 +118,10 @@ void loop(void) {
 
     case 4:
       //rebind success
-      Serial.println("Rebind success");
+      //Serial.println("Rebind success");
       //print your local IP address:
-      Serial.print("My IP address: ");
-      Serial.println(Ethernet.localIP());
+      //Serial.print("My IP address: ");
+      //Serial.println(Ethernet.localIP());
       if(!VoltMeterOnly){
         digitalWrite(MyRelay, HIGH); //Vypne se vybíjení baterie a počká se 2 sekundy protože relé má nějaké spoždění
         delay(1000);
@@ -157,26 +157,26 @@ void loop(void) {
   //time = millis();
   float wattHour2 = watts * 0.00833333333;
 
-  Serial.println();
-  Serial.print("Volts: "); 
-  Serial.print(voltage, 3);
-  Serial.print("\tAmps: ");
-  Serial.print(current,3);
-  Serial.print("\tWatts: ");
-  Serial.println(watts,3);
-  //Serial.print("\tWattHour: ");
-  //Serial.print(wattHour,9);
   //Serial.println();
-  Serial.print("\tWattHour2: ");
-  Serial.print(wattHour2,9);
-  Serial.println();
-  //Serial.print("\tPocet hodin od posledniho měření: ");
-  //Serial.print(hours);
-  Serial.println();
+  //Serial.print("Volts: "); 
+  //Serial.print(voltage, 3);
+  //Serial.print("\tAmps: ");
+  //Serial.print(current,3);
+  //Serial.print("\tWatts: ");
+  //Serial.println(watts,3);
+  ////Serial.print("\tWattHour: ");
+  ////Serial.print(wattHour,9);
+  ////Serial.println();
+  //Serial.print("\tWattHour2: ");
+  //Serial.print(wattHour2,9);
+  //Serial.println();
+  ////Serial.print("\tPocet hodin od posledniho měření: ");
+  ////Serial.print(hours);
+  //Serial.println();
 
   if (voltage > 2.5){
     if (client.connect(server, 80)) {
-      Serial.println("Connected");
+      //Serial.println("Connected");
       client.print("GET /baterky/baterky_zapis.php?tabulka=");
       client.print("stav&Napeti=");
       client.print(voltage);
@@ -191,21 +191,21 @@ void loop(void) {
       client.println("Connection: close");
       
       client.println();
-      Serial.println();
+      //Serial.println();
       
       // and add this
       while(client.connected()) {
         while(client.available()) {
-          Serial.write(client.read());
+          //Serial.write(client.read());
         }
       }
     }
-    else
-      Serial.println("Připojení k webserveru selhalo.");
+    //else
+      //Serial.println("Připojení k webserveru selhalo.");
   }else if(voltage == 0){
-    Serial.println("Připoj baterku!"); 
+    //Serial.println("Připoj baterku!"); 
   }else{
-    Serial.println("Odpoj baterku!");
+    //Serial.println("Odpoj baterku!");
     digitalWrite(MyRelay, LOW);
     RelayOn = false;
   }

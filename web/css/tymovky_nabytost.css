@@ -1,28 +1,29 @@
-
-
-progress[value] {
-  /* Reset the default appearance */
-  -webkit-appearance: none;
-  appearance: none;
-
-  width: 50%;
-  height: 100px;
-}
-ul{
-  list-style-type: none;}
-.button {
-  background-color: #4CAF50;
-  border: none;
-  color: white;
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 4px 2px;
-  cursor: pointer;
-}
 .html5
 {
   border: 2px solid #000000;
 }
+.html5{
+data-preset="energy"}
+.ldBar{position:relative;}.ldBar.label-center > .ldBar-label{position:absolute;top:50%;left:50%;-webkit-transform:translate(-50%,-50%);transform:translate(-50%,-50%);text-shadow:0 0 3px #fff}.ldBar-label:after{content:"%";display:inline}.ldBar.no-percent .ldBar-label:after{content:""} 
+body{
+  height: 100%;
+  margin: 0;
+
+}
+.navigace  {
+  color: #0000FF;
+  width: auto;
+  height: 10vh;
+  background-color: #0000FF;
+  margin: 0;
+}
+.block {
+  height:90vh;
+  margin-left:  10px;
+  margin-top: 10px;
+ background-image: url("../img/Battery-image.png");
+background-size:cover;
+}
+.data
+{dat:ldbar/res,bubble(colorBk, colorBubble, count, duration)
+

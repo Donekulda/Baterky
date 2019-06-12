@@ -1,8 +1,8 @@
 <?php
-	 $db_host = "md40.wedos.net";
-	 $db_user = "w212071_baterky";
-	 $db_pass = "pRnUuHd4";
-	 $db_db = "d212071_baterky";
+	 $db_host = "host";
+	 $db_user = "username";
+	 $db_pass = "heslo";
+	 $db_db = "databaze";
 	  
 	 $conn = new mysqli($db_host, $db_user, $db_pass, $db_db);
 	 if ($conn->connect_error) {

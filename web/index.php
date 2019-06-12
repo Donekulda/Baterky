@@ -97,8 +97,8 @@
 
 
       <p><strong><?php echo ($value > 0)?"Baterie má ".$value."%.":"Baterie není připojená nebo je vybitá!"; ?></strong></p>
-      <p><strong>Tato baterie má kapacitu <?php echo $Ah." Ampér Hodin."; ?> </strong></p>
-      <p><strong>V této baterii je uložena el.energie o velikost <?php echo $Wh." Watt Hodin."; ?> </strong></p>
+      <p><strong>Nominální kapacita této baterie je <?php echo $Ah." Ampér Hodin."; ?> </strong></p>
+      <p><strong>Kapacita této baterie: <?php echo $Wh." Watt Hodin."; ?> </strong></p>
     </div>
 
     <div

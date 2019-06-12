@@ -33,7 +33,7 @@
           }
         }
         
-        $sql2 = "SELECT MAX(U), Min(U), COUNT(Wh), COUNT(W*0.0166666667) AS WattHour FROM ".$druh; //důvod proč to(watty na WattHodiny) počítam s minuty je ten že v původní verzi jsem měřil po minutách a v nové verzi měřím po 30 sekundách
+        $sql2 = "SELECT MAX(U), Min(U), SUM(Wh), SUM(W*(1/60)) AS WattHour FROM ".$druh; //důvod proč to(watty na WattHodiny) počítam s minuty je ten že v původní verzi jsem měřil po minutách a v nové verzi měřím po 30 sekundách
         $result2 = $conn->query($sql2);
         
         if ($result2->num_rows > 0) {
@@ -41,7 +41,7 @@
           while($row = $result2->fetch_assoc()) {
             $max = $row['MAX(U)'];    
             $min = $row['Min(U)'];
-            $Wh = $row['COUNT(Wh)'];
+            $Wh = $row['SUM(Wh)'];
             if($Wh == 0 or $Wh == null or !isset($Wh))
               $Wh = $row['WattHour'];
             $delic = ($max-$min); //hodnota pro deleni voltu
@@ -64,8 +64,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+  <meta charset="UTF-8">
+  <title>Měření stavu baterii</title>
   <link rel="stylesheet" type="text/css" href="css/tymovky_nabytost.css" media="all">
 
   <script type="text/javascript" src="script.js"></script>
@@ -74,34 +74,39 @@
 
 </head>
 <body>
-<div class="navigace"></div>
+<div class="navigace"> Měření Baterií</div>
 <div class="block">
-<div>
-	<form method="Get" action="">
-		<input type="submit" name="druh" value="Modrá">
-		<input type="submit" name="druh" value="Fialová">
-		<input type="submit" name="druh" value="Zelená">
-		<input type="submit" name="druh" value="Žlutá">
-	</form>
-</div>
-<form>
-zadej procenta 
+  <div class="vynech"></div>
 
-<div>
+  <div class="blocek">
+  <div class="block__first"></div>
+  <div>
+    <form method="Get" action="">
+      <input type="submit" name="druh" value="Modrá" class="modra">
+      <input type="submit" name="druh" value="Fialová" class="fialova">
+      <input type="submit" name="druh" value="Zelená" class="zelena">
+      <input type="submit" name="druh" value="Žlutá" class="zluta">
+    </form>
+  </div>
+
+    <div class="text">
 
 
-    <p><strong><?php echo ($value > 0)?"Baterie má ".$value."%.":"Baterie není připojená nebo je vybitá!"; ?></strong></p>
-    <p><strong>Tato baterie má kapacitu <?php echo $Wh." Watt Hodin."; ?> </strong></p>
-</div> 
-<div
-    data-type="fill"
-    data-path="M10 10L90 10L90 90L10 90Z"
-    class="ldBar"
-    data-fill="data:ldbar/res,bubble(#00ff00,#000000,50,1)"
-    data-value="<?php echo $value;?>"
+      <p><strong><?php echo ($value > 0)?"Baterie má ".$value."%.":"Baterie není připojená nebo je vybitá!"; ?></strong></p>
+      <p><strong>Tato baterie má kapacitu <?php echo $Wh." Watt Hodin."; ?> </strong></p>
+    </div>
 
-    style="margin-top: 100px;">
+    <div
+      data-type="fill"
+      data-path="M10 10L90 10L90 90L10 90Z"
+      class="ldBar"
+      data-fill="data:ldbar/res,bubble(#00ff00,#000000,50,1)"
+      data-value="<?php echo $value;?>"
 
+      style="margin-top: 10px;">
+
+    </div>
+  
   </div>
 </div>
 </body>

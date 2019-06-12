@@ -3,11 +3,14 @@
   
 	$value = 0;
   $Wh = 0;
+  $nasobitelAh = (1/3600)*30;
+  $Ah = 0;
     $druh="modra";
 	if(isset($_GET['druh'])){
 		$druh = $_GET['druh'];
 		if($druh == "Modrá"){
 			$druh = "modra";
+			$nasobitelAh = 1/60; //Protoze fialová je měřena po 1 minutě
 		}else if($druh == "Fialová"){
 			$druh = "fialova";
 		}else if($druh == "Zelená"){
@@ -33,7 +36,7 @@
           }
         }
         
-        $sql2 = "SELECT MAX(U), Min(U), SUM(Wh), SUM(W*(1/60)) AS WattHour FROM ".$druh; //důvod proč to(watty na WattHodiny) počítam s minuty je ten že v původní verzi jsem měřil po minutách a v nové verzi měřím po 30 sekundách
+        $sql2 = "SELECT MAX(U), Min(U), SUM(Wh), SUM(W*(1/60)) AS WattHour, SUM(I*".$nasobitelAh.") AS Ah FROM ".$druh; //důvod proč to(watty na WattHodiny) počítam s minuty je ten že v původní verzi jsem měřil po minutách a v nové verzi měřím po 30 sekundách
         $result2 = $conn->query($sql2);
         
         if ($result2->num_rows > 0) {
@@ -42,6 +45,7 @@
             $max = $row['MAX(U)'];    
             $min = $row['Min(U)'];
             $Wh = $row['SUM(Wh)'];
+            $Ah = $row['Ah'];
             if($Wh == 0 or $Wh == null or !isset($Wh))
               $Wh = $row['WattHour'];
             $delic = ($max-$min); //hodnota pro deleni voltu
@@ -93,7 +97,7 @@
 
 
       <p><strong><?php echo ($value > 0)?"Baterie má ".$value."%.":"Baterie není připojená nebo je vybitá!"; ?></strong></p>
-      <p><strong>Tato baterie má kapacitu <?php echo $Wh." Watt Hodin."; ?> </strong></p>
+      <p><strong>Tato baterie má kapacitu <?php echo $Ah." Ampér Hodin."; ?> </strong></p>
     </div>
 
     <div
